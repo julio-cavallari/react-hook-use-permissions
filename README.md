@@ -122,16 +122,15 @@ export default function App() {
 
 #### Props
 
-| Prop| Type| Description|
-| ---| --- | --- |
-| **`children`**    | `ReactNode<any>` | React Node(s) to render.                                               |
-| **`permissions`** | `string[]`       | Permissions that will be used for verification inside of the component |
-| **`hasAny`**      | `?string         | string[]`                                                              | Permissions to be checked in `hasAny` `usePermissions` method. If you pass permissions as a string, they must be separated by \_` | (pipe)`\_ |
-| **`has`**         | `?string         | string[]`                                                              | Permissions to be checked in `has` `usePermissions` method. If you pass permissions as a string, they must be separated by \_`    | (pipe)`\_ |
+| Prop | Type | Description|
+| --- | --- | --- |
+| **`children`** | `ReactNode<any>` | React Node(s) to render. |
+| **`permissions`** | `string[]` | Permissions that will be used for verification inside of the component |
+| **`hasAny`** | `?string`&#124;`string[]` | Permissions to be checked in `hasAny` `usePermissions` method. If you pass permissions as a string, they must be separated by _&#124; (pipe)_ |
+| **`has`** | `?string`&#124;`string[]` | Permissions to be checked in `has` `usePermissions` method. If you pass permissions as a string, they must be separated by _&#124; (pipe)_ |
 
-\*If you do not pass any permissions on both the `hasAny` property and the `has` property, the component will render the content as if the user has permission
-
-\*\*The `hasAny` property stands out over the has property, so if you pass any permission to both the `hasAny` property and the has property, the component will only check with the `hasAny` method
+If you do not pass any permissions on both the `hasAny` property and the `has` property, the component will render the content as if the user has permission.
+The `hasAny` property stands out over the has property, so if you pass any permission to both the `hasAny` property and the has property, the component will only check with the `hasAny` method.
 
 ## Credits
 
