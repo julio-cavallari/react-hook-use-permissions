@@ -30,7 +30,7 @@ $ npm install --save react-hook-use-permissions
 #### Using yarn:
 
 ```bash
-$ yarn react-hook-use-permissions
+$ yarn add react-hook-use-permissions
 ```
 
 ### Hook
