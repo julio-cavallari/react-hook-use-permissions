@@ -1,6 +1,6 @@
 {
   "name": "react-hook-use-permissions",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Custom React Hook to verifiy permissions like Laratrus for Laravel",
   "main": "index.ts",
   "repository": {
