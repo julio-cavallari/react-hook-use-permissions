@@ -1,8 +1,8 @@
 # react-hook-use-permissions
 
-![platforms](https://img.shields.io/badge/platforms-Android%20%7C%20iOS-brightgreen.svg?style=flat-square&colorB=191A17)
-[![npm](https://img.shields.io/npm/v/react-native-snap-carousel.svg?style=flat-square)](https://www.npmjs.com/package/react-native-snap-carousel)
-[![npm](https://img.shields.io/npm/dm/react-native-snap-carousel.svg?style=flat-square&colorB=007ec6)](https://www.npmjs.com/package/react-native-snap-carousel)
+![platforms](https://img.shields.io/badge/platforms-WEB%20%7C%20Android%20%7C%20iOS-brightgreen.svg?style=flat-square&colorB=191A17)
+[![npm](https://img.shields.io/npm/v/react-hook-use-permissions.svg?style=flat-square)](https://www.npmjs.com/package/react-hook-use-permissions)
+[![npm](https://img.shields.io/npm/dm/react-hook-use-permissions.svg?style=flat-square&colorB=007ec6)](https://www.npmjs.com/package/react-hook-use-permissions)
 [![github issues](https://img.shields.io/github/issues/julinhoooO/react-hook-use-permissions.svg?style=flat-square)](https://github.com/julinhoooO/react-hook-use-permissions/issues)
 [![github closed issues](https://img.shields.io/github/issues-closed/julinhoooO/react-hook-use-permissions.svg?style=flat-square&colorB=44cc11)](https://github.com/julinhoooO/react-hook-use-permissions/issues?q=is%3Aissue+is%3Aclosed)
 
@@ -30,7 +30,7 @@ $ npm install --save react-hook-use-permissions
 #### Using yarn:
 
 ```bash
-$ yarn react-hook-use-permissions
+$ yarn add react-hook-use-permissions
 ```
 
 ### Hook
