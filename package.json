@@ -1,7 +1,30 @@
 {
-  "name": "custom-hooks",
-  "version": "0.1.0",
-  "private": true,
+  "name": "react-hook-use-permissions",
+  "version": "1.0.0",
+  "description": "Custom React Hook to verifiy permissions like Laratrus for Laravel",
+  "main": "index.ts",
+  "repository": {
+    "type": "git",
+    "directory": "git+https://github.com/julio-cavallari/react-hook-use-permissions.git"
+  },
+  "author": {
+    "name": "Julio Cavallari",
+    "email": "cesinha--jcf@hotmail.com",
+    "url": "https://github.com/julio-cavallari"
+  },
+  "keywords": [
+    "hooks",
+    "react",
+    "react-native",
+    "react-hooks",
+    "permissions",
+    "use-permissions",
+    "permission"
+  ],
+  "homepage": "https://github.com/julio-cavallari/react-hook-use-permissions#readme",
+  "bugs": {
+    "url": "https://github.com/julio-cavallari/react-hook-use-permissions/issues"
+  },
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
