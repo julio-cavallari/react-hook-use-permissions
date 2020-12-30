@@ -122,8 +122,8 @@ export default function App() {
 
 #### Props
 
-| Prop              | Type             | Description                                                            |
-| ----------------- | ---------------- | ---------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- | --------- |
+| Prop| Type| Description|
+| ---| --- | --- |
 | **`children`**    | `ReactNode<any>` | React Node(s) to render.                                               |
 | **`permissions`** | `string[]`       | Permissions that will be used for verification inside of the component |
 | **`hasAny`**      | `?string         | string[]`                                                              | Permissions to be checked in `hasAny` `usePermissions` method. If you pass permissions as a string, they must be separated by \_` | (pipe)`\_ |
