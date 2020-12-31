@@ -1,8 +1,9 @@
 {
   "name": "react-hook-use-permissions",
-  "version": "1.0.1",
+  "version": "1.0.4",
   "description": "Custom React Hook to verifiy permissions like Laratrus for Laravel",
   "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -45,16 +46,27 @@
     "react": "^17.0.1"
   },
   "devDependencies": {
+    "@types/react": "^17.0.0",
     "babel-core": "^6.26.3",
-    "ts-loader": "^8.0.12",
     "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
+    "eslint-plugin-react-hooks": "^4.2.0",
     "path": "^0.12.7",
     "react": "^17.0.1",
+    "ts-loader": "^8.0.12",
+    "typescript": "^4.1.3",
     "webpack": "^5.11.1",
     "webpack-cli": "^4.3.0",
-    "typescript": "^4.1.3",
-    "@types/react": "^17.0.0"
+    "eslint": "^7.10.0",
+    "eslint-config-airbnb": "^18.2.0",
+    "eslint-config-prettier": "^6.12.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-import-helpers": "^1.1.0",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-prettier": "^3.3.0",
+    "eslint-plugin-react": "^7.22.0",
+    "babel-eslint": "10.1.0",
+    "prettier": "^2.2.1"
   }
 }

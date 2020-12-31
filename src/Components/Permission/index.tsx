@@ -2,12 +2,12 @@ import * as React from "react";
 import { usePermissions } from "../../Hooks";
 import { PermissionProps } from "../../types";
 
-const Permission = ({
+function Permission({
   permissions,
   hasAny,
   has,
   children,
-}: React.PropsWithChildren<PermissionProps>) => {
+}: React.PropsWithChildren<PermissionProps>) {
   const [hasAnyPermission, hasPermissions] = usePermissions(permissions);
   if (hasAny) {
     return <>{hasAnyPermission(hasAny) ? children : null}</>;
@@ -15,6 +15,6 @@ const Permission = ({
     return <>{hasPermissions(has) ? children : null}</>;
   }
   return <>{children}</>;
-};
+}
 
 export default Permission;

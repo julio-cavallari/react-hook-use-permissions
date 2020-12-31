@@ -6,3 +6,4 @@ tsconfig.json
 yarn.lock
 package.lock
 README.md
+.eslintrc.js
