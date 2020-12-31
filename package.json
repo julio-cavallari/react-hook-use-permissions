@@ -1,9 +1,9 @@
 {
   "name": "react-hook-use-permissions",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Custom React Hook to verifiy permissions like Laratrus for Laravel",
-  "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
+  "main": "./src/index.js",
+  "types": "./src/index.d.ts",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -28,7 +28,7 @@
     "url": "https://github.com/julio-cavallari/react-hook-use-permissions/issues"
   },
   "scripts": {
-    "build": "webpack"
+    "build": "tsc"
   },
   "browserslist": {
     "production": [
@@ -43,7 +43,14 @@
     ]
   },
   "peerDependencies": {
-    "react": "^17.0.1"
+    "@types/react": "^16.8.6 || ^17.0.0",
+    "react": "^16.8.0 || ^17.0.0",
+    "react-dom": "^16.8.0 || ^17.0.0"
+  },
+  "peerDependenciesMeta": {
+    "@types/react": {
+      "optional": true
+    }
   },
   "devDependencies": {
     "@types/react": "^17.0.0",

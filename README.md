@@ -59,7 +59,7 @@ import usePermissions from "react-hook-use-permissions";
 export default function App() {
   /** Here you can use any way to instantiate permissions, for example through states using redux **/
   const permissions = ["store", "edit"];
-  const [hasAny, hasAll, doesNotHaveAny, doesNotHaveAll] = usePermissions(
+  const { hasAny, hasAll, doesNotHaveAny, doesNotHaveAll } = usePermissions(
     permissions
   );
 
@@ -122,14 +122,14 @@ export default function App() {
 
 #### Props
 
-| Prop | Type | Description|
-| --- | --- | --- |
-| **`children`** | `ReactNode<any>` | React Node(s) to render. |
-| **`permissions`** | `string[]` | Permissions that will be used for verification inside of the component |
-| **`hasAny`** | `?string`&#124;`string[]` | Permissions to be checked in `hasAny` `usePermissions` method. If you pass permissions as a string, they must be separated by _&#124; (pipe)_ |
-| **`has`** | `?string`&#124;`string[]` | Permissions to be checked in `has` `usePermissions` method. If you pass permissions as a string, they must be separated by _&#124; (pipe)_ |
+| Prop              | Type                      | Description                                                                                                                                   |
+| ----------------- | ------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| **`children`**    | `ReactNode<any>`          | React Node(s) to render.                                                                                                                      |
+| **`permissions`** | `string[]`                | Permissions that will be used for verification inside of the component                                                                        |
+| **`hasAny`**      | `?string`&#124;`string[]` | Permissions to be checked in `hasAny` `usePermissions` method. If you pass permissions as a string, they must be separated by _&#124; (pipe)_ |
+| **`hasAll`**      | `?string`&#124;`string[]` | Permissions to be checked in `hasAll` `usePermissions` method. If you pass permissions as a string, they must be separated by _&#124; (pipe)_ |
 
-If you do not pass any permissions on both the `hasAny` property and the `has` property, the component will render the content as if the user has permission.
+If you do not pass any permissions on both the `hasAny` property and the `hasAll` property, the component will render the content as if the user has permission.
 The `hasAny` property stands out over the has property, so if you pass any permission to both the `hasAny` property and the has property, the component will only check with the `hasAny` method.
 
 ## Credits

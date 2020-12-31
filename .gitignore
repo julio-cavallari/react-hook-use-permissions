@@ -6,6 +6,8 @@
 .pnp.jsction
 /build
 /dist
+/src/**/*.js
+/src/**/*.d.ts
 
 # misc
 .DS_Store

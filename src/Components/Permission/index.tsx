@@ -5,14 +5,17 @@ import { PermissionProps } from "../../types";
 function Permission({
   permissions,
   hasAny,
-  has,
+  hasAll,
   children,
 }: React.PropsWithChildren<PermissionProps>) {
-  const [hasAnyPermission, hasPermissions] = usePermissions(permissions);
+  const {
+    hasAny: hasAnyPermission,
+    hasAll: hasAllPermissions,
+  } = usePermissions(permissions);
   if (hasAny) {
     return <>{hasAnyPermission(hasAny) ? children : null}</>;
-  } else if (has) {
-    return <>{hasPermissions(has) ? children : null}</>;
+  } else if (hasAll) {
+    return <>{hasAllPermissions(hasAll) ? children : null}</>;
   }
   return <>{children}</>;
 }

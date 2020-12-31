@@ -4,7 +4,7 @@ import { useState } from "react";
 function usePermissions(permissions: string[]) {
   const [state] = useState<string[]>(permissions);
 
-  const hasAll = (permissionsKey: string | string[]) => {
+  function hasAll(permissionsKey: string | string[]): boolean {
     const arrayPermissions = Array.isArray(permissionsKey)
       ? permissionsKey
       : permissionsKey.split("|");
@@ -17,9 +17,9 @@ function usePermissions(permissions: string[]) {
       }
     }
     return includedPermissions.length === arrayPermissions.length;
-  };
+  }
 
-  const hasAny = (permissionsKey: string | string[]) => {
+  function hasAny(permissionsKey: string | string[]): boolean {
     const arrayPermissions = Array.isArray(permissionsKey)
       ? permissionsKey
       : permissionsKey.split("|");
@@ -31,9 +31,9 @@ function usePermissions(permissions: string[]) {
       }
     }
     return false;
-  };
+  }
 
-  const doesNotHaveAll = (permissionsKey: string | string[]) => {
+  function doesNotHaveAll(permissionsKey: string | string[]): boolean {
     const arrayPermissions = Array.isArray(permissionsKey)
       ? permissionsKey
       : permissionsKey.split("|");
@@ -46,9 +46,9 @@ function usePermissions(permissions: string[]) {
       }
     }
     return includedPermissions.length === arrayPermissions.length;
-  };
+  }
 
-  const doesNotHaveAny = (permissionsKey: string | string[]) => {
+  function doesNotHaveAny(permissionsKey: string | string[]): boolean {
     const arrayPermissions = Array.isArray(permissionsKey)
       ? permissionsKey
       : permissionsKey.split("|");
@@ -60,9 +60,9 @@ function usePermissions(permissions: string[]) {
       }
     }
     return false;
-  };
+  }
 
-  return [hasAny, hasAll, doesNotHaveAny, doesNotHaveAll];
+  return { hasAny, hasAll, doesNotHaveAny, doesNotHaveAll };
 }
 
 export default usePermissions;
