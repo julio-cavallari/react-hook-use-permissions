@@ -130,7 +130,7 @@ export default function App() {
 | **`hasAll`**      | `?string`&#124;`string[]` | Permissions to be checked in `hasAll` `usePermissions` method. If you pass permissions as a string, they must be separated by _&#124; (pipe)_ |
 
 If you do not pass any permissions on both the `hasAny` property and the `hasAll` property, the component will render the content as if the user has permission.
-The `hasAny` property stands out over the has property, so if you pass any permission to both the `hasAny` property and the has property, the component will only check with the `hasAny` method.
+The `hasAny` property stands out over the has property, so if you pass any permission to both the `hasAny` property and the `hasAll` property, the component will only check with the `hasAny` method.
 
 ## Credits
 
