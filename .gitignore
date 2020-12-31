@@ -5,6 +5,7 @@
 /.pnp
 .pnp.jsction
 /build
+/dist
 
 # misc
 .DS_Store
