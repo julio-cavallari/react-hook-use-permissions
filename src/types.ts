@@ -1,7 +1,34 @@
 import { HTMLProps } from "react";
 
-export interface PermissionProps extends HTMLProps<HTMLDivElement> {
+interface RootStateType {
   permissions: string[];
-  hasAny?: string | string[];
-  hasAll?: string | string[];
+  [otherOptions: string]: any;
+}
+
+export type SelectorCallbackType = (state: RootStateType) => string[];
+
+export type VerifyMethod =
+  | "hasAll"
+  | "hasAny"
+  | "doesNotHaveAll"
+  | "doesNotHaveAny";
+
+interface DefaultPermissionProps extends HTMLProps<HTMLDivElement> {
+  permissionsArray?: string[];
+  permissionsToVerify?: string | string[];
+  verifyMethod: VerifyMethod;
+}
+
+export interface PermissionProps extends DefaultPermissionProps {
+  useRedux?: boolean;
+  selector?: SelectorCallbackType;
+}
+
+export interface PermissionWithReduxProps
+  extends Omit<DefaultPermissionProps, "permissionsArray"> {
+  selector: SelectorCallbackType;
+}
+
+export interface PermissionWithoutReduxProps extends DefaultPermissionProps {
+  permissionsArray: string[];
 }

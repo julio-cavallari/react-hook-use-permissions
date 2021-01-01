@@ -2,22 +2,37 @@ import * as React from "react";
 import { usePermissions } from "../../Hooks";
 import { PermissionProps } from "../../types";
 
+import PermissionWithRedux from "./PermissionWithRedux";
+import PermissionWithoutRedux from "./PermissionWithoutRedux";
+
 function Permission({
-  permissions,
-  hasAny,
-  hasAll,
+  permissionsArray,
+  permissionsToVerify = "",
+  verifyMethod,
+  useRedux,
+  selector,
   children,
 }: React.PropsWithChildren<PermissionProps>) {
-  const {
-    hasAny: hasAnyPermission,
-    hasAll: hasAllPermissions,
-  } = usePermissions(permissions);
-  if (hasAny) {
-    return <>{hasAnyPermission(hasAny) ? children : null}</>;
-  } else if (hasAll) {
-    return <>{hasAllPermissions(hasAll) ? children : null}</>;
+  if (useRedux) {
+    return (
+      <PermissionWithRedux
+        permissionsToVerify={permissionsToVerify}
+        verifyMethod={verifyMethod}
+        selector={selector}
+      >
+        {children}
+      </PermissionWithRedux>
+    );
   }
-  return <>{children}</>;
+  return (
+    <PermissionWithoutRedux
+      permissionsArray={permissionsArray}
+      permissionsToVerify={permissionsToVerify}
+      verifyMethod={verifyMethod}
+    >
+      {children}
+    </PermissionWithoutRedux>
+  );
 }
 
 export default Permission;

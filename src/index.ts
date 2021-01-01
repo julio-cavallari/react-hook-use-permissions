@@ -1,4 +1,3 @@
-import { usePermissions } from "./Hooks";
+export { usePermissions } from "./Hooks";
+export { usePermissionsWithRedux } from "./Hooks";
 export { Permission } from "./Components";
-
-export default usePermissions;

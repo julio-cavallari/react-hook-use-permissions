@@ -13,6 +13,9 @@
 ## Table of contents
 
 1. [Usage](#usage)
+  1.1 [Installation](#installation)
+  1.2 [Hooks](#hooks)
+  1.3 [Component](#component)
 1. [Credits](#credits)
 
 ---
@@ -33,7 +36,7 @@ $ npm install --save react-hook-use-permissions
 $ yarn add react-hook-use-permissions
 ```
 
-### Hook
+### Hooks
 
 #### `hasAny`
 
@@ -54,7 +57,7 @@ This method checks that all permissions passed as a function parameter do not ex
 \*In all methods, you can use a string with the permissions separated by `| (pipe)` or a `array`
 
 ```javascript
-import usePermissions from "react-hook-use-permissions";
+import {usePermissions} from "react-hook-use-permissions";
 
 export default function App() {
   /** Here you can use any way to instantiate permissions, for example through states using redux **/
@@ -93,11 +96,53 @@ export default function App() {
 }
 ```
 
+#### Usage With Redux
+
+To use with redux the only thing that will be different is the instantiation of the hook, you will use the hook `usePermissionsWithRedux`, and you will have to pass as a parameter to the hook a function to be used in the redux selector, `state => state.permissions` for example.
+
+```javascript
+import {usePermissionsWithRedux} from "react-hook-use-permissions";
+
+export default function App() {
+  const { hasAny, hasAll, doesNotHaveAny, doesNotHaveAll } = usePermissionsWithRedux(
+    state => state.permissions
+  );
+
+  return (
+    <>
+      {hasAny("store|edit|remove") ? (
+        <div>Have any of the permissions</div>
+      ) : (
+        <div>Does not have any of the permissions</div>
+      )}
+
+      {hasAll(["store", "edit", "remove"]) ? (
+        <div>Has all of the permissions</div>
+      ) : (
+        <div>Does not have all of the permissions</div>
+      )}
+
+      {doesNotHaveAny("store|edit|remove") ? (
+        <div>Does not have any of the permissions</div>
+      ) : (
+        <div>Has any of the permissions</div>
+      )}
+
+      {doesNotHaveAll("store|edit") ? (
+        <div>Does not have all of the permissions</div>
+      ) : (
+        <div>Has any or all of the permissions</div>
+      )}
+    </>
+  );
+}
+```
+
 ### Component
 
 #### `Permission`
 
-This is a component that uses the `usePermissions` hook inside itself
+This is a component that uses the `usePermissions` or `usePermissionsWithRedux` hook inside itself
 
 ```javascript
 import { Permission } from "react-hook-use-permissions";
@@ -108,10 +153,34 @@ export default function App() {
 
   return (
     <Permission
-      permissions={permissions}
-      hasAny="store|edit"
+      permissionsArray={permissions}
+      permissionsToVerify="store|editar"
+      verifyMethod="hasAll"
       /**
-       * You can also pass permissions on an array like this ['store', 'edit']
+       * You can also pass permissions on an array like this ['store', 'edit'] to permissionsToVerify prop
+       **/
+    >
+      {/**Put here the content you want**/}
+    </Permission>
+  );
+}
+```
+
+#### Usage With Redux
+
+```javascript
+import { Permission } from "react-hook-use-permissions";
+
+export default function App() {
+
+  return (
+    <Permission
+      useRedux
+      selectorCallback={(state) => state.user.permissions}
+      permissionsToVerify="store|editar"
+      verifyMethod="hasAll"
+      /**
+       * You can also pass permissions on an array like this ['store', 'edit'] to permissionsToVerify prop
        **/
     >
       {/**Put here the content you want**/}
@@ -122,15 +191,16 @@ export default function App() {
 
 #### Props
 
-| Prop              | Type                      | Description                                                                                                                                   |
-| ----------------- | ------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
-| **`children`**    | `ReactNode<any>`          | React Node(s) to render.                                                                                                                      |
-| **`permissions`** | `string[]`                | Permissions that will be used for verification inside of the component                                                                        |
-| **`hasAny`**      | `?string`&#124;`string[]` | Permissions to be checked in `hasAny` `usePermissions` method. If you pass permissions as a string, they must be separated by _&#124; (pipe)_ |
-| **`hasAll`**      | `?string`&#124;`string[]` | Permissions to be checked in `hasAll` `usePermissions` method. If you pass permissions as a string, they must be separated by _&#124; (pipe)_ |
+| Prop | Type | Description |
+| --- | --- | --- |
+| **`children`** | `ReactNode<any>` | React Node(s) to render. |
+| **`permissionsArray`** | `?string[]` | Permissions that will be used for verification inside of the component. `Required` if `useRedux` prop are `false`|
+| **`permissionsToVerify`** | `?string`&#124;`string[]`| Permissions to be checked by method passed in prop `verifyMethod`. If you pass permissions as a string, they must be separated by _&#124; (pipe)_ |
+| **`verifyMethod`** | `hasAll`&#124;`hasAny`&#124;`doesNotHaveAll`&#124;`doesNotHaveAny` | Hook method used to verify permissions |
+| **`useRedux`** | `?boolean` | If passed as a `true` component it will use the permissions coming from redux |
+| **`selector`** | `() => string[]` | Function used by the redux hook useSelector. `Required` if `useRedux` prop are `true`|
 
-If you do not pass any permissions on both the `hasAny` property and the `hasAll` property, the component will render the content as if the user has permission.
-The `hasAny` property stands out over the has property, so if you pass any permission to both the `hasAny` property and the `hasAll` property, the component will only check with the `hasAny` method.
+If you do not pass any permissions on `permissionsToVerify` property, the component will render the content as if the user has permission.
 
 ## Credits
 
