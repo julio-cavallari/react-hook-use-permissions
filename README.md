@@ -176,7 +176,7 @@ export default function App() {
   return (
     <Permission
       useRedux
-      selectorCallback={(state) => state.user.permissions}
+      selector={(state) => state.user.permissions}
       permissionsToVerify="store|editar"
       verifyMethod="hasAll"
       /**
