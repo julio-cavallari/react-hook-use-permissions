@@ -13,9 +13,9 @@
 ## Table of contents
 
 1. [Usage](#usage)
-  1.1 [Installation](#installation)
-  1.2 [Hooks](#hooks)
-  1.3 [Component](#component)
+    1. [Installation](#installation)
+    1. [Hooks](#hooks)
+    1. [Component](#component)
 1. [Credits](#credits)
 
 ---
