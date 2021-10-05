@@ -8,15 +8,10 @@ function usePermissions(permissions: string[]) {
     const arrayPermissions = Array.isArray(permissionsKey)
       ? permissionsKey
       : permissionsKey.split("|");
-    const includedPermissions: string[] = [];
     if (state && state.length > 0) {
-      for (const permission of arrayPermissions) {
-        if (state.includes(permission)) {
-          includedPermissions.push(permission);
-        }
-      }
+      return arrayPermissions.every((permission) => state.includes(permission));
     }
-    return includedPermissions.length === arrayPermissions.length;
+    return false;
   }
 
   function hasAny(permissionsKey: string | string[]): boolean {
@@ -24,11 +19,7 @@ function usePermissions(permissions: string[]) {
       ? permissionsKey
       : permissionsKey.split("|");
     if (state && state.length > 0) {
-      for (const permission of arrayPermissions) {
-        if (state.includes(permission)) {
-          return true;
-        }
-      }
+      return arrayPermissions.some((permission) => state.includes(permission));
     }
     return false;
   }
@@ -37,15 +28,10 @@ function usePermissions(permissions: string[]) {
     const arrayPermissions = Array.isArray(permissionsKey)
       ? permissionsKey
       : permissionsKey.split("|");
-    const includedPermissions: string[] = [];
     if (state && state.length > 0) {
-      for (const permission of arrayPermissions) {
-        if (!state.includes(permission)) {
-          includedPermissions.push(permission);
-        }
-      }
+      return arrayPermissions.every((permission) => !state.includes(permission));
     }
-    return includedPermissions.length === arrayPermissions.length;
+    return false;
   }
 
   function doesNotHaveAny(permissionsKey: string | string[]): boolean {
@@ -53,11 +39,7 @@ function usePermissions(permissions: string[]) {
       ? permissionsKey
       : permissionsKey.split("|");
     if (state && state.length > 0) {
-      for (const permission of arrayPermissions) {
-        if (!state.includes(permission)) {
-          return true;
-        }
-      }
+      return arrayPermissions.some((permission) => !state.includes(permission));
     }
     return false;
   }
