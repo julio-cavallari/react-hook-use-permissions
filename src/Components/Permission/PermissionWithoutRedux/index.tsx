@@ -1,6 +1,6 @@
 import React from "react";
 import { usePermissions } from "../../../Hooks";
-import { PermissionWithoutReduxProps, Method } from "../../../types";
+import { PermissionProps, Method } from "../../../types";
 
 function PermissionWithoutRedux({
   permissions,
@@ -9,8 +9,8 @@ function PermissionWithoutRedux({
   doesNotHaveAll,
   doesNotHaveAny,
   children,
-}: React.PropsWithChildren<PermissionWithoutReduxProps>) {
-  const methods = usePermissions<string[]>(permissions);
+}: React.PropsWithChildren<PermissionProps>) {
+  const methods = usePermissions<string[] | undefined>(permissions);
   const [permissionsToVerify, setPermissionsToverify] = React.useState<string | string[] | undefined | null>([]);
   const [method, setMethod] = React.useState<Method | null>(null);
 

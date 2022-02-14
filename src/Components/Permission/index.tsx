@@ -1,10 +1,11 @@
 import * as React from "react";
-import { PermissionProps } from "../../types";
+import { PermissionProps, ReduxPermissionProps, PermissionsProps } from "../../types";
 
 import PermissionWithRedux from "./PermissionWithRedux";
 import PermissionWithoutRedux from "./PermissionWithoutRedux";
+import { DefaultRootState } from "react-redux";
 
-function Permission({
+function Permission<TState = DefaultRootState, TSelected = string[]>({
   permissions,
   hasAll,
   hasAny,
@@ -12,10 +13,10 @@ function Permission({
   doesNotHaveAny,
   selector,
   children,
-}: React.PropsWithChildren<PermissionProps>) {
+}: React.PropsWithChildren<PermissionProps<TState, TSelected>>) {
   if (selector) {
     return (
-      <PermissionWithRedux
+      <PermissionWithRedux<TState, TSelected>
         hasAll={hasAll}
         hasAny={hasAny}
         doesNotHaveAll={doesNotHaveAll}

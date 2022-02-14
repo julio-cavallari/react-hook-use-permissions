@@ -62,7 +62,7 @@ import { usePermissions } from "react-hook-use-permissions";
 export default function App() {
   /** Here you can use any way to instantiate permissions, for example through states using redux **/
   const permissions = ["store", "edit"];
-  const { hasAny, hasAll, doesNotHaveAny, doesNotHaveAll } = usePermissions(permissions);
+  const { hasAny, hasAll, doesNotHaveAny, doesNotHaveAll } = usePermissions<string[]>(permissions);
 
   return (
     <>
@@ -96,13 +96,14 @@ export default function App() {
 
 #### Usage With Redux
 
-To use with redux the only thing that will be different is the instantiation of the hook, you will use the hook `usePermissionsWithRedux`, and you will have to pass as a parameter to the hook a function to be used in the redux selector, `state => state.permissions` for example.
+To use with redux the only thing that will be different is the instantiation of the hook, you will use the hook `usePermissionsWithRedux`, and you will have to pass as a parameter to the hook a function to be used in the redux selector, `state => state.user.permissions` for example.
 
 ```javascript
 import { usePermissionsWithRedux } from "react-hook-use-permissions";
+import {RootState, UserState} from "./redux-types";
 
 export default function App() {
-  const { hasAny, hasAll, doesNotHaveAny, doesNotHaveAll } = usePermissionsWithRedux((state) => state.permissions);
+  const { hasAny, hasAll, doesNotHaveAny, doesNotHaveAll } = usePermissionsWithRedux<RootState, UserState>((state) => state.user.permissions);
 
   return (
     <>
@@ -149,11 +150,14 @@ export default function App() {
 
   return (
     <Permission
-      permissionsArray={permissions}
-      permissionsToVerify="store|editar"
-      verifyMethod="hasAll"
+      permissions={permissions}
+      doesNotHaveAny="store|edit"
       /**
-       * You can also pass permissions on an array like this ['store', 'edit'] to permissionsToVerify prop
+       * You can also pass permissions on an array like this ['store', 'edit'] to doesNotHaveAny prop
+       **/
+
+      /**
+       * You can also pass any method described above to verify permissions
        **/
     >
       {/**Put here the content you want**/}
@@ -166,16 +170,19 @@ export default function App() {
 
 ```javascript
 import { Permission } from "react-hook-use-permissions";
+import {RootState, UserState} from "./redux-types";
 
 export default function App() {
   return (
-    <Permission
-      useRedux
+    <Permission<RootState, UserState>
       selector={(state) => state.user.permissions}
-      permissionsToVerify="store|editar"
-      verifyMethod="hasAll"
+      hasAny="store|edit"
       /**
-       * You can also pass permissions on an array like this ['store', 'edit'] to permissionsToVerify prop
+       * You can also pass permissions on an array like this ['store', 'edit'] to hasAny prop
+       **/
+
+      /**
+       * You can also pass any method described above to verify permissions
        **/
     >
       {/**Put here the content you want**/}

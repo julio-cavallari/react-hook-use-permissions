@@ -1,15 +1,15 @@
 import React from "react";
 import { usePermissionsWithRedux } from "../../../Hooks";
-import { PermissionWithReduxProps, Method } from "../../../types";
+import { ReduxPermissionProps, Method } from "../../../types";
 
-function PermissionWithRedux({
+function PermissionWithRedux<TState, TSelected>({
   hasAll,
   hasAny,
   doesNotHaveAll,
   doesNotHaveAny,
   selector,
   children,
-}: React.PropsWithChildren<PermissionWithReduxProps>) {
+}: React.PropsWithChildren<ReduxPermissionProps<TState, TSelected>>) {
   const methods = usePermissionsWithRedux(selector);
   const [permissions, setPermissions] = React.useState<string | string[] | undefined | null>([]);
   const [method, setMethod] = React.useState<Method | null>(null);
@@ -34,7 +34,7 @@ function PermissionWithRedux({
     setPermissions(doesNotHaveAny);
   }
 
-  if (method && method(permissions)) {
+  if (!method || (permissions?.length && method && method(permissions))) {
     return <>{children}</>;
   }
 
