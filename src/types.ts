@@ -20,5 +20,3 @@ export interface ReduxPermissionProps<TState, TSelected>
 export interface PermissionsProps extends PermissionProps {
   permissions: string[];
 }
-
-export type Method = (permissions: string | string[]) => boolean;

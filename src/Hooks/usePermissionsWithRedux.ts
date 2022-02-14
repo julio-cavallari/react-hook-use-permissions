@@ -10,10 +10,10 @@ function usePermissionsWithRedux<TState = DefaultRootState, TSelected = unknown>
   const permissions = useSelector<TState, TSelected>(selector);
   const [state] = useState(permissions);
 
-  const hasAll = functions.hasAll(state);
-  const hasAny = functions.hasAny(state);
-  const doesNotHaveAll = functions.doesNotHaveAll(state);
-  const doesNotHaveAny = functions.doesNotHaveAny(state);
+  const hasAll = functions.hasAll(state as any);
+  const hasAny = functions.hasAny(state as any);
+  const doesNotHaveAll = functions.doesNotHaveAll(state as any);
+  const doesNotHaveAny = functions.doesNotHaveAny(state as any);
 
   return { hasAny, hasAll, doesNotHaveAny, doesNotHaveAll };
 }

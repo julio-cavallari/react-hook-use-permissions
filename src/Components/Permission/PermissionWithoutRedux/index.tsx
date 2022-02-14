@@ -1,6 +1,6 @@
 import React from "react";
 import { usePermissions } from "../../../Hooks";
-import { PermissionProps, Method } from "../../../types";
+import { PermissionProps } from "../../../types";
 
 function PermissionWithoutRedux({
   permissions,
@@ -11,30 +11,25 @@ function PermissionWithoutRedux({
   children,
 }: React.PropsWithChildren<PermissionProps>) {
   const methods = usePermissions<string[] | undefined>(permissions);
-  const [permissionsToVerify, setPermissionsToverify] = React.useState<string | string[] | undefined | null>([]);
-  const [method, setMethod] = React.useState<Method | null>(null);
+  const [hasPermission, setHasPermission] = React.useState<boolean | null>(null);
 
-  if (hasAll) {
-    setMethod(methods.hasAll);
-    setPermissionsToverify(hasAll);
+  if (hasAll && hasPermission === null) {
+    setHasPermission(methods.hasAll(hasAll));
   }
 
-  if (hasAny) {
-    setMethod(methods.hasAny);
-    setPermissionsToverify(hasAny);
+  if (hasAny && hasPermission === null) {
+    setHasPermission(methods.hasAny(hasAny));
   }
 
-  if (doesNotHaveAll) {
-    setMethod(methods.doesNotHaveAll);
-    setPermissionsToverify(doesNotHaveAll);
+  if (doesNotHaveAll && hasPermission === null) {
+    setHasPermission(methods.doesNotHaveAll(doesNotHaveAll));
   }
 
-  if (doesNotHaveAny) {
-    setMethod(methods.doesNotHaveAny);
-    setPermissionsToverify(doesNotHaveAny);
+  if (doesNotHaveAny && hasPermission === null) {
+    setHasPermission(methods.doesNotHaveAny(doesNotHaveAny));
   }
 
-  if (!method || (permissionsToVerify?.length && method && method(permissionsToVerify))) {
+  if (hasPermission || (!hasAll && !hasAny && !doesNotHaveAll && !doesNotHaveAny)) {
     return <>{children}</>;
   }
 

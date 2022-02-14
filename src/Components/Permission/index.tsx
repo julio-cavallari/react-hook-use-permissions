@@ -1,5 +1,5 @@
 import * as React from "react";
-import { PermissionProps, ReduxPermissionProps, PermissionsProps } from "../../types";
+import { PermissionProps } from "../../types";
 
 import PermissionWithRedux from "./PermissionWithRedux";
 import PermissionWithoutRedux from "./PermissionWithoutRedux";
