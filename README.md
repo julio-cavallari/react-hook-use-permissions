@@ -13,9 +13,9 @@
 ## Table of contents
 
 1. [Usage](#usage)
-    1. [Installation](#installation)
-    1. [Hooks](#hooks)
-    1. [Component](#component)
+   1. [Installation](#installation)
+   1. [Hooks](#hooks)
+   1. [Component](#component)
 1. [Credits](#credits)
 
 ---
@@ -57,14 +57,12 @@ This method checks that all permissions passed as a function parameter do not ex
 \*In all methods, you can use a string with the permissions separated by `| (pipe)` or a `array`
 
 ```javascript
-import {usePermissions} from "react-hook-use-permissions";
+import { usePermissions } from "react-hook-use-permissions";
 
 export default function App() {
   /** Here you can use any way to instantiate permissions, for example through states using redux **/
   const permissions = ["store", "edit"];
-  const { hasAny, hasAll, doesNotHaveAny, doesNotHaveAll } = usePermissions(
-    permissions
-  );
+  const { hasAny, hasAll, doesNotHaveAny, doesNotHaveAll } = usePermissions<string[]>(permissions);
 
   return (
     <>
@@ -98,15 +96,14 @@ export default function App() {
 
 #### Usage With Redux
 
-To use with redux the only thing that will be different is the instantiation of the hook, you will use the hook `usePermissionsWithRedux`, and you will have to pass as a parameter to the hook a function to be used in the redux selector, `state => state.permissions` for example.
+To use with redux the only thing that will be different is the instantiation of the hook, you will use the hook `usePermissionsWithRedux`, and you will have to pass as a parameter to the hook a function to be used in the redux selector, `state => state.user.permissions` for example.
 
 ```javascript
-import {usePermissionsWithRedux} from "react-hook-use-permissions";
+import { usePermissionsWithRedux } from "react-hook-use-permissions";
+import {RootState, UserState} from "./redux-types";
 
 export default function App() {
-  const { hasAny, hasAll, doesNotHaveAny, doesNotHaveAll } = usePermissionsWithRedux(
-    state => state.permissions
-  );
+  const { hasAny, hasAll, doesNotHaveAny, doesNotHaveAll } = usePermissionsWithRedux<RootState, UserState>((state) => state.user.permissions);
 
   return (
     <>
@@ -153,11 +150,14 @@ export default function App() {
 
   return (
     <Permission
-      permissionsArray={permissions}
-      permissionsToVerify="store|editar"
-      verifyMethod="hasAll"
+      permissions={permissions}
+      doesNotHaveAny="store|edit"
       /**
-       * You can also pass permissions on an array like this ['store', 'edit'] to permissionsToVerify prop
+       * You can also pass permissions on an array like this ['store', 'edit'] to doesNotHaveAny prop
+       **/
+
+      /**
+       * You can also pass any method described above to verify permissions
        **/
     >
       {/**Put here the content you want**/}
@@ -170,17 +170,19 @@ export default function App() {
 
 ```javascript
 import { Permission } from "react-hook-use-permissions";
+import {RootState, UserState} from "./redux-types";
 
 export default function App() {
-
   return (
-    <Permission
-      useRedux
+    <Permission<RootState, UserState>
       selector={(state) => state.user.permissions}
-      permissionsToVerify="store|editar"
-      verifyMethod="hasAll"
+      hasAny="store|edit"
       /**
-       * You can also pass permissions on an array like this ['store', 'edit'] to permissionsToVerify prop
+       * You can also pass permissions on an array like this ['store', 'edit'] to hasAny prop
+       **/
+
+      /**
+       * You can also pass any method described above to verify permissions
        **/
     >
       {/**Put here the content you want**/}
@@ -191,16 +193,17 @@ export default function App() {
 
 #### Props
 
-| Prop | Type | Description |
-| --- | --- | --- |
-| **`children`** | `ReactNode<any>` | React Node(s) to render. |
-| **`permissionsArray`** | `?string[]` | Permissions that will be used for verification inside of the component. `Required` if `useRedux` prop are `false`|
-| **`permissionsToVerify`** | `?string`&#124;`string[]`| Permissions to be checked by method passed in prop `verifyMethod`. If you pass permissions as a string, they must be separated by _&#124; (pipe)_ |
-| **`verifyMethod`** | `hasAll`&#124;`hasAny`&#124;`doesNotHaveAll`&#124;`doesNotHaveAny` | Hook method used to verify permissions |
-| **`useRedux`** | `?boolean` | If passed as a `true` component it will use the permissions coming from redux |
-| **`selector`** | `() => string[]` | Function used by the redux hook useSelector. `Required` if `useRedux` prop are `true`|
+| Prop                 | Type                                    | Description                                                                                                                                                                                 |
+| -------------------- | --------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **`children`**       | `ReactNode`                             | React Node(s) to render.                                                                                                                                                                    |
+| **`permissions`**    | `?string[]`                             | Permissions that will be used for verification inside of the component. `Required` if `selector` prop are not present                                                                       |
+| **`hasAny`**         | `?string`&#124;`string[]`               | Permissions to be checked by method `hasAny` present in `usePermission` or `usePermissionWithRedux`. If you pass permissions as a string, they must be separated by _&#124; (pipe)_         |
+| **`hasAll`**         | `?string`&#124;`string[]`               | Permissions to be checked by method `hasAll` present in `usePermission` or `usePermissionWithRedux`. If you pass permissions as a string, they must be separated by _&#124; (pipe)_         |
+| **`doesNotHaveAny`** | `?string`&#124;`string[]`               | Permissions to be checked by method `doesNotHaveAny` present in `usePermission` or `usePermissionWithRedux`. If you pass permissions as a string, they must be separated by _&#124; (pipe)_ |
+| **`doesNotHaveAll`** | `?string`&#124;`string[]`               | Permissions to be checked by method `doesNotHaveAll` present in `usePermission` or `usePermissionWithRedux`. If you pass permissions as a string, they must be separated by _&#124; (pipe)_ |
+| **`selector`**       | `(state: DefaultRootState) => string[]` | Selector used by the redux to get permissions. `Required` if `permissions` prop are not present                                                                                             |
 
-If you do not pass any permissions on `permissionsToVerify` property, the component will render the content as if the user has permission.
+If you do not pass any permissions on `permissions` property, the component will render the content as if the user has permission.
 
 ## Credits
 

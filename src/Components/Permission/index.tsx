@@ -1,23 +1,26 @@
 import * as React from "react";
-import { usePermissions } from "../../Hooks";
 import { PermissionProps } from "../../types";
 
 import PermissionWithRedux from "./PermissionWithRedux";
 import PermissionWithoutRedux from "./PermissionWithoutRedux";
+import { DefaultRootState } from "react-redux";
 
-function Permission({
-  permissionsArray,
-  permissionsToVerify = "",
-  verifyMethod,
-  useRedux,
+function Permission<TState = DefaultRootState, TSelected = string[]>({
+  permissions,
+  hasAll,
+  hasAny,
+  doesNotHaveAll,
+  doesNotHaveAny,
   selector,
   children,
-}: React.PropsWithChildren<PermissionProps>) {
-  if (useRedux) {
+}: React.PropsWithChildren<PermissionProps<TState, TSelected>>) {
+  if (selector) {
     return (
-      <PermissionWithRedux
-        permissionsToVerify={permissionsToVerify}
-        verifyMethod={verifyMethod}
+      <PermissionWithRedux<TState, TSelected>
+        hasAll={hasAll}
+        hasAny={hasAny}
+        doesNotHaveAll={doesNotHaveAll}
+        doesNotHaveAny={doesNotHaveAny}
         selector={selector}
       >
         {children}
@@ -26,9 +29,11 @@ function Permission({
   }
   return (
     <PermissionWithoutRedux
-      permissionsArray={permissionsArray}
-      permissionsToVerify={permissionsToVerify}
-      verifyMethod={verifyMethod}
+      permissions={permissions}
+      hasAll={hasAll}
+      hasAny={hasAny}
+      doesNotHaveAll={doesNotHaveAll}
+      doesNotHaveAny={doesNotHaveAny}
     >
       {children}
     </PermissionWithoutRedux>

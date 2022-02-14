@@ -1,16 +1,35 @@
 import React from "react";
 import { usePermissionsWithRedux } from "../../../Hooks";
-import { PermissionWithReduxProps } from "../../../types";
+import { ReduxPermissionProps } from "../../../types";
 
-function PermissionWithRedux({
-  permissionsToVerify,
-  verifyMethod,
+function PermissionWithRedux<TState, TSelected>({
+  hasAll,
+  hasAny,
+  doesNotHaveAll,
+  doesNotHaveAny,
   selector,
   children,
-}: React.PropsWithChildren<PermissionWithReduxProps>) {
+}: React.PropsWithChildren<ReduxPermissionProps<TState, TSelected>>) {
   const methods = usePermissionsWithRedux(selector);
+  const [hasPermission, setHasPermission] = React.useState<boolean | null>(null);
 
-  if (methods[verifyMethod](permissionsToVerify)) {
+  if (hasAll && hasPermission === null) {
+    setHasPermission(methods.hasAll(hasAll));
+  }
+
+  if (hasAny && hasPermission === null) {
+    setHasPermission(methods.hasAny(hasAny));
+  }
+
+  if (doesNotHaveAll && hasPermission === null) {
+    setHasPermission(methods.doesNotHaveAll(doesNotHaveAll));
+  }
+
+  if (doesNotHaveAny && hasPermission === null) {
+    setHasPermission(methods.doesNotHaveAny(doesNotHaveAny));
+  }
+
+  if (hasPermission || (!hasAll && !hasAny && !doesNotHaveAll && !doesNotHaveAny)) {
     return <>{children}</>;
   }
 

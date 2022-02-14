@@ -1,34 +1,22 @@
 import { HTMLProps } from "react";
+import { DefaultRootState } from "react-redux";
 
-interface RootStateType {
+export type SelectorCallbackType<TState = DefaultRootState, TSelected = string[]> = (state: TState) => TSelected;
+
+export interface PermissionProps<TState = DefaultRootState, TSelected = string[]> extends HTMLProps<HTMLDivElement> {
+  permissions?: string[];
+  hasAll?: string | string[];
+  hasAny?: string | string[];
+  doesNotHaveAll?: string | string[];
+  doesNotHaveAny?: string | string[];
+  selector?: SelectorCallbackType<TState, TSelected>;
+}
+
+export interface ReduxPermissionProps<TState, TSelected>
+  extends Omit<PermissionProps<TState, TSelected>, "permissions"> {
+  selector: SelectorCallbackType<TState, TSelected>;
+}
+
+export interface PermissionsProps extends PermissionProps {
   permissions: string[];
-  [otherOptions: string]: any;
-}
-
-export type SelectorCallbackType = (state: RootStateType) => string[];
-
-export type VerifyMethod =
-  | "hasAll"
-  | "hasAny"
-  | "doesNotHaveAll"
-  | "doesNotHaveAny";
-
-interface DefaultPermissionProps extends HTMLProps<HTMLDivElement> {
-  permissionsArray?: string[];
-  permissionsToVerify?: string | string[];
-  verifyMethod: VerifyMethod;
-}
-
-export interface PermissionProps extends DefaultPermissionProps {
-  useRedux?: boolean;
-  selector?: SelectorCallbackType;
-}
-
-export interface PermissionWithReduxProps
-  extends Omit<DefaultPermissionProps, "permissionsArray"> {
-  selector: SelectorCallbackType;
-}
-
-export interface PermissionWithoutReduxProps extends DefaultPermissionProps {
-  permissionsArray: string[];
 }

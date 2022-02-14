@@ -1,69 +1,19 @@
 /* eslint-disable no-restricted-syntax */
 import { useState } from "react";
-import { useSelector } from "react-redux";
+import { DefaultRootState, useSelector } from "react-redux";
 import { SelectorCallbackType } from "../types";
+import * as functions from "./functions";
 
-function usePermissionsWithRedux(selector: SelectorCallbackType) {
-  const permissions = useSelector(selector);
+function usePermissionsWithRedux<TState = DefaultRootState, TSelected = unknown>(
+  selector: SelectorCallbackType<TState, TSelected>
+) {
+  const permissions = useSelector<TState, TSelected>(selector);
   const [state] = useState(permissions);
 
-  function hasAll(permissionsKey: string | string[]): boolean {
-    const arrayPermissions = Array.isArray(permissionsKey)
-      ? permissionsKey
-      : permissionsKey.split("|");
-    const includedPermissions: string[] = [];
-    if (state && state.length > 0) {
-      for (const permission of arrayPermissions) {
-        if (state.includes(permission)) {
-          includedPermissions.push(permission);
-        }
-      }
-    }
-    return includedPermissions.length === arrayPermissions.length;
-  }
-
-  function hasAny(permissionsKey: string | string[]): boolean {
-    const arrayPermissions = Array.isArray(permissionsKey)
-      ? permissionsKey
-      : permissionsKey.split("|");
-    if (state && state.length > 0) {
-      for (const permission of arrayPermissions) {
-        if (state.includes(permission)) {
-          return true;
-        }
-      }
-    }
-    return false;
-  }
-
-  function doesNotHaveAll(permissionsKey: string | string[]): boolean {
-    const arrayPermissions = Array.isArray(permissionsKey)
-      ? permissionsKey
-      : permissionsKey.split("|");
-    const includedPermissions: string[] = [];
-    if (state && state.length > 0) {
-      for (const permission of arrayPermissions) {
-        if (!state.includes(permission)) {
-          includedPermissions.push(permission);
-        }
-      }
-    }
-    return includedPermissions.length === arrayPermissions.length;
-  }
-
-  function doesNotHaveAny(permissionsKey: string | string[]): boolean {
-    const arrayPermissions = Array.isArray(permissionsKey)
-      ? permissionsKey
-      : permissionsKey.split("|");
-    if (state && state.length > 0) {
-      for (const permission of arrayPermissions) {
-        if (!state.includes(permission)) {
-          return true;
-        }
-      }
-    }
-    return false;
-  }
+  const hasAll = functions.hasAll(state as any);
+  const hasAny = functions.hasAny(state as any);
+  const doesNotHaveAll = functions.doesNotHaveAll(state as any);
+  const doesNotHaveAny = functions.doesNotHaveAny(state as any);
 
   return { hasAny, hasAll, doesNotHaveAny, doesNotHaveAll };
 }
